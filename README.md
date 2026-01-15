@@ -18,6 +18,7 @@
 🏀 **NBA AI** is a toolkit designed to download, archive, and analyze NBA data.
 
 It serves two main purposes:
+
 1. **Data Collection**: Fetching scores, player statistics, and availability data from NBA.com in a structured format.
 2. **AI Analysis**: Future plans include training models on this data and using LLMs to analyze news for predictive insights.
 
