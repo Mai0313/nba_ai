@@ -15,93 +15,162 @@
 
 </div>
 
-🏀 **NBA AI** is a toolkit designed to download, archive, and analyze NBA data.
+🏀 **NBA AI** is an intelligent NBA data analysis and prediction system that combines data collection, machine learning, and LLM-powered insights.
 
-It serves two main purposes:
+## 🎯 Project Overview
 
-1. **Data Collection**: Fetching scores, player statistics, and availability data from NBA.com in a structured format.
-2. **AI Analysis**: Future plans include training models on this data and using LLMs to analyze news for predictive insights.
+This project consists of two main phases:
+
+### Phase 1: Data Collection & Archiving (Current Focus)
+
+Leverage the `nba_api` library to systematically download and store NBA data from NBA.com in a structured format:
+
+- **Game Scores**: Historical and real-time game results with box scores
+- **Player Statistics**: Per-game performance data for all players (points, rebounds, assists, shooting percentages, etc.)
+- **Player Availability**: Injury reports, playing time, rotation patterns, and roster status
+- **Team Statistics**: Team performance metrics, standings, and head-to-head records
+- **Advanced Metrics**: Usage rates, efficiency ratings, plus/minus, and other advanced stats
+
+**Data Source**: All data is collected via the `nba_api` Python library, which provides comprehensive access to NBA.com's stats endpoints.
+
+### Phase 2: AI-Powered Prediction (Future)
+
+#### Predictive Modeling
+
+- Train machine learning models using historical structured data
+- Predict game outcomes, player performance, and team statistics
+- Continuous model improvement with new data
+
+#### LLM-Based News Analysis (Planned)
+
+- Integrate news and media reports as additional input
+- Use LLMs to extract sentiment and contextual factors
+- Generate weighted predictions combining statistical models and news analysis
+- Create comprehensive game previews and player insights
 
 ## ✨ Features
 
-- **Data Crawler**: Automated downloading of NBA stats (scores, player logs, usage rates).
-- **Structured Storage**: Archiving data for historical analysis and model training.
-- **AI Integration**: (Planned) Machine learning models for outcome prediction and LLM-driven news analysis.
-- **Modern Tooling**: Built with `uv`, `ruff`, `mypy`, and `pytest` for a robust development environment.
+### Current Implementation
+
+- **NBA API Integration**: Utilize `nba_api` library for reliable data access from NBA.com
+- **Automated Data Collection**: Scheduled tasks to fetch daily game results, player stats, and team data
+- **Structured Storage**: Well-organized data schema (SQLite/PostgreSQL) for efficient querying and analysis
+- **Data Validation**: Comprehensive data quality checks and deduplication
+- **Modern Development**: Built with `uv`, `ruff`, `mypy`, and `pytest`
+
+### Planned Features
+
+- **ML Models**: Statistical prediction models trained on historical data
+- **LLM Integration**: News analysis and contextual prediction weighting
+- **API Endpoints**: RESTful API for accessing predictions and historical data
+- **Visualization Dashboard**: Interactive charts and prediction displays
+- **Real-time Updates**: Live game tracking and prediction adjustments
+
+## 🗂️ Project Structure
+
+```
+nba_ai/
+├── src/nba_ai/
+│   ├── data_collection/  # NBA API data fetching modules
+│   │   ├── games.py     # Game scores and box scores
+│   │   ├── players.py   # Player stats and profiles
+│   │   └── teams.py     # Team stats and standings
+│   ├── models/           # Data models and Pydantic schemas
+│   ├── storage/          # Database handlers (SQLite/PostgreSQL)
+│   ├── ml/              # (Future) Machine learning models
+│   ├── llm/             # (Future) LLM integration for news analysis
+│   └── api/             # (Future) FastAPI endpoints
+├── data/                # Local data storage
+│   ├── raw/            # Raw JSON responses from nba_api
+│   ├── processed/      # Cleaned and structured data
+│   └── models/         # Trained model artifacts
+├── notebooks/          # Jupyter notebooks for analysis
+└── tests/              # Test suite
+```
+
+## 🎯 Development Roadmap
+
+### Phase 1: Data Infrastructure (Q1 2026)
+
+- [ ] Set up `nba_api` integration and test endpoints
+- [ ] Design database schema for player stats, games, and teams
+- [ ] Implement data collectors for:
+  - [ ] Game scores and box scores
+  - [ ] Player per-game statistics
+  - [ ] Player availability and injury reports
+  - [ ] Team standings and statistics
+- [ ] Build ETL pipeline for daily data updates
+- [ ] Create data validation and quality checks
+- [ ] Set up automated data archiving and backup
+
+### Phase 2: Exploratory Analysis (Q2 2026)
+
+- [ ] Analyze historical data patterns
+- [ ] Identify key predictive features
+- [ ] Build baseline statistical models
+- [ ] Evaluate model performance metrics
+
+### Phase 3: ML Model Development (Q3 2026)
+
+- [ ] Train regression models for score prediction
+- [ ] Build classification models for win/loss prediction
+- [ ] Implement player performance models
+- [ ] Create ensemble methods for improved accuracy
+
+### Phase 4: LLM Integration (Q4 2026 - Future)
+
+- [ ] Collect and preprocess news data
+- [ ] Design LLM prompts for news analysis
+- [ ] Implement weighted prediction system
+- [ ] Evaluate combined model performance
+- [ ] Build API and frontend dashboard
 
 ## 🚀 Quick Start
 
-Prerequisites:
+### Prerequisites
 
-- Python 3.11–3.14
-- `uv` (install with `make uv-install`)
+- Python 3.11 or higher
+- `uv` package manager ([installation guide](https://docs.astral.sh/uv/))
 
-Local setup:
+### Installation
 
 ```bash
-make uv-install               # once
-uv sync                       # install base deps
-uv tool install pre-commit    # or: uv sync --group dev
-make format                   # run pre-commit hooks
-make test                     # run tests
+# Install uv if you haven't already
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Clone the repository
+git clone https://github.com/Mai0313/nba_ai.git
+cd nba_ai
+
+# Install dependencies
+uv sync
+
+# Install nba_api
+uv add nba_api
 ```
 
-Run the CLI:
+### Basic Usage
 
 ```bash
+# Run the CLI
 uv run nba_ai
+
+# Run tests
+make test
 ```
 
-## 🧰 Commands Reference
+## 💾 Data Storage
 
-```bash
-# Development
-make help               # List available make targets
-make clean              # Clean caches, artifacts and generated docs
-make format             # Run all pre-commit hooks
-make test               # Run pytest across the repository
-make gen-docs           # Generate docs from src/ and scripts/
+Collected data will be stored in the `data/` directory:
 
-# Dependencies (via uv)
-make uv-install         # Install uv on your system
-uv add <pkg>            # Add production dependency
-uv add <pkg> --dev      # Add development dependency
-# Sync optional groups
-uv sync --group dev     # Install dev-only deps (pre-commit, poe, notebook)
-uv sync --group test    # Install test-only deps
-uv sync --group docs    # Install docs-only deps
-```
-
-## 📚 Documentation
-
-- Live docs are built with MkDocs Material.
-- Generate API docs locally and serve:
-
-```bash
-uv sync --group docs
-make gen-docs
-uv run mkdocs serve    # http://localhost:9987
-```
-
-## 🐳 Docker and Local Services
-
-`docker-compose.yaml` includes optional services for local development: `redis`, `postgresql`, `mongodb`, `mysql`.
-
-Run services:
-
-```bash
-docker compose up -d redis postgresql
-
-# Or run the app container
-docker compose up -d app
-```
+- `data/raw/` - Raw JSON responses from nba_api
+- `data/processed/` - Cleaned and structured data
+- Database: SQLite (default) or PostgreSQL for production
 
 ## 🤝 Contributing
 
-- Open issues/PRs
-- Follow the coding style (ruff, type hints)
-- Use Conventional Commit messages and descriptive PR titles
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-MIT — see `LICENSE`.
+MIT — see [LICENSE](LICENSE).

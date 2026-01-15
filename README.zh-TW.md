@@ -1,8 +1,8 @@
 <div align="center" markdown="1">
 
-# Python 專案模板
+# NBA AI
 
-[![PyPI version](https://img.shields.io/pypi/v/swebenchv2.svg)](https://pypi.org/project/swebenchv2/)
+[![PyPI version](https://img.shields.io/pypi/v/nba-ai.svg)](https://pypi.org/project/nba-ai/)
 [![python](https://img.shields.io/badge/-Python_%7C_3.11%7C_3.12%7C_3.13%7C_3.14-blue?logo=python&logoColor=white)](https://www.python.org/downloads/source/)
 [![uv](https://img.shields.io/badge/-uv_dependency_management-2C5F2D?logo=python&logoColor=white)](https://docs.astral.sh/uv/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
@@ -15,272 +15,164 @@
 
 </div>
 
-🚀 幫助 Python 開發者「快速建立新專案」的模板。內建現代化套件管理、工具鏈、Docker 與完整 CI/CD 工作流程。
-
-點擊 [使用此模板](https://github.com/Mai0313/nba_ai/generate) 後即可開始。
+🏀 **NBA AI** 是一個智能 NBA 資料分析和預測系統，結合資料收集、機器學習和 LLM 驅動的洞察。
 
 其他語言: [English](README.md) | [繁體中文](README.zh-TW.md) | [简体中文](README.zh-CN.md)
 
-## ✨ 重點特色
+## 🎯 專案概述
 
-- 現代 `src/` 佈局 + 全面型別註解
-- `uv` 超快依賴管理
-- pre-commit 套件鏈：ruff、mdformat（含多插件）、codespell、nbstripout、mypy、uv hooks
-- 型別嚴謹：mypy + Pydantic 外掛設定
-- pytest + coverage + xdist；PR 覆蓋率摘要留言
-    - 覆蓋率門檻 80%，HTML/XML 報告輸出至 `.github/`
-- MkDocs Material + mkdocstrings（繼承圖）、markdown-exec、MathJax
-    - 開發伺服器 `0.0.0.0:9987`；雙語文件腳手架
-- 文件生成腳本：支援 class/檔案兩種模式、可選執行 notebook、可併發、保留目錄結構
-    - 使用 anyio 非同步處理與 rich 進度條
-- 打包：`uv build`、git-cliff 產 changelog
-- CI 自動版本：以 `dunamai` 從 git 產 PEP 440 版本
-- Dockerfile 多階段（內含 uv/uvx 與 Node.js）；Compose 服務（Redis/Postgres/Mongo/MySQL）含 healthcheck 與 volume
-- GitHub Actions：測試、品質、文件部署、套件打包、Docker 推送（GHCR + buildx cache）、Release Drafter、自動標籤、祕密掃描、語義化 PR、pre-commit 自動更新
-    - pre-commit 同時掛載多個 git 階段（pre-commit、post-checkout、post-merge、post-rewrite）
-    - i18n 友善檢查（允許中文標點等 confusables）
-    - 文件列出可替代的環境管理（Rye、Conda）
-    - 相容舊式流程：可用 `uv pip` 匯出 `requirements.txt`
+本專案由兩個主要階段組成：
+
+### 第一階段：資料收集與歸檔（當前重點）
+
+利用 `nba_api` 函式庫從 NBA.com 系統化地下載並儲存結構化的 NBA 資料：
+
+- **比賽分數**：歷史和即時比賽結果及詳細數據統計
+- **球員統計**：所有球員的單場表現資料（得分、籃板、助攻、投籃命中率等）
+- **球員出場情況**：傷病報告、上場時間、輪換模式和陣容狀態
+- **球隊統計**：球隊表現指標、排名和對戰紀錄
+- **進階指標**：使用率、效率評分、正負值等進階統計資料
+
+**資料來源**：所有資料透過 `nba_api` Python 函式庫收集，該函式庫提供了對 NBA.com 統計端點的全面存取。
+
+### 第二階段：AI 驅動預測（未來）
+
+#### 預測建模
+
+- 使用歷史結構化資料訓練機器學習模型
+- 預測比賽結果、球員表現和球隊統計
+- 透過新資料持續改進模型
+
+#### 基於 LLM 的新聞分析（規劃中）
+
+- 整合新聞和媒體報導作為額外輸入
+- 使用 LLM 提取情感和上下文因素
+- 生成結合統計模型和新聞分析的加權預測
+- 創建全面的比賽預覽和球員洞察
+
+## ✨ 功能特色
+
+### 當前實作
+
+- **NBA API 整合**：利用 `nba_api` 函式庫從 NBA.com 可靠地取得資料
+- **自動資料收集**：定時任務取得每日比賽結果、球員統計和球隊資料
+- **結構化儲存**：組織良好的資料模式（SQLite/PostgreSQL），便於高效查詢和分析
+- **資料驗證**：全面的資料品質檢查和去重
+- **現代化開發**：使用 `uv`、`ruff`、`mypy` 和 `pytest` 建構
+
+### 計畫功能
+
+- **機器學習模型**：基於歷史資料訓練的統計預測模型
+- **LLM 整合**：新聞分析和上下文預測加權
+- **API 端點**：用於存取預測和歷史資料的 RESTful API
+- **視覺化儀錶板**：互動式圖表和預測顯示
+- **即時更新**：即時比賽追蹤和預測調整
+
+## 🗂️ 專案結構
+
+```
+nba_ai/
+├── src/nba_ai/
+│   ├── data_collection/  # NBA API 資料取得模組
+│   │   ├── games.py     # 比賽分數和詳細統計
+│   │   ├── players.py   # 球員統計和資料
+│   │   └── teams.py     # 球隊統計和排名
+│   ├── models/           # 資料模型和 Pydantic 模式
+│   ├── storage/          # 資料庫處理器（SQLite/PostgreSQL）
+│   ├── ml/              # （未來）機器學習模型
+│   ├── llm/             # （未來）新聞分析的 LLM 整合
+│   └── api/             # （未來）FastAPI 端點
+├── data/                # 本地資料儲存
+│   ├── raw/            # nba_api 的原始 JSON 回應
+│   ├── processed/      # 清洗和結構化資料
+│   └── models/         # 訓練好的模型檔案
+├── notebooks/          # 用於分析的 Jupyter notebooks
+└── tests/              # 測試套件
+```
+
+## 🎯 開發路線圖
+
+### 第一階段：資料基礎設施（2026年第1季度）
+
+- [ ] 設定 `nba_api` 整合並測試端點
+- [ ] 設計球員統計、比賽和球隊的資料庫模式
+- [ ] 實作資料收集器：
+  - [ ] 比賽分數和詳細統計
+  - [ ] 球員單場統計資料
+  - [ ] 球員出場情況和傷病報告
+  - [ ] 球隊排名和統計
+- [ ] 建構每日資料更新的 ETL 管道
+- [ ] 創建資料驗證和品質檢查
+- [ ] 設定自動資料歸檔和備份
+
+### 第二階段：探索性分析（2026年第2季度）
+
+- [ ] 分析歷史資料模式
+- [ ] 識別關鍵預測特徵
+- [ ] 建構基準統計模型
+- [ ] 評估模型效能指標
+
+### 第三階段：機器學習模型開發（2026年第3季度）
+
+- [ ] 訓練分數預測的迴歸模型
+- [ ] 建構勝負預測的分類模型
+- [ ] 實作球員表現模型
+- [ ] 創建集成方法以提高準確性
+
+### 第四階段：LLM 整合（2026年第4季度 - 未來）
+
+- [ ] 收集和預處理新聞資料
+- [ ] 設計用於新聞分析的 LLM 提示
+- [ ] 實作加權預測系統
+- [ ] 評估組合模型效能
+- [ ] 建構 API 和前端儀錶板
 
 ## 🚀 快速開始
 
-需求：
+### 環境需求
 
-- Python 3.11–3.14
-- `uv`（可用 `make uv-install` 安裝）
-- pre-commit hooks：`uv tool install pre-commit` 或 `uv sync --group dev`
+- Python 3.11 或更高版本
+- `uv` 套件管理器（[安裝指南](https://docs.astral.sh/uv/)）
 
-本機安裝：
+### 安裝
 
 ```bash
-make uv-install
-uv sync                     # 安裝基礎依賴
-uv tool install pre-commit  # 或：uv sync --group dev
-make format
+# 安裝 uv（如果尚未安裝）
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# 克隆倉庫
+git clone https://github.com/Mai0313/nba_ai.git
+cd nba_ai
+
+# 安裝依賴
+uv sync
+
+# 安裝 nba_api
+uv add nba_api
+```
+
+### 基本使用
+
+```bash
+# 執行 CLI
+uv run nba_ai
+
+# 執行測試
 make test
 ```
 
-執行範例 CLI：
+## 💾 資料儲存
 
-```bash
-uv run nba_ai
-```
+收集的資料將儲存在 `data/` 目錄中：
 
-作為模板使用（推薦）：
-
-1. 點擊「使用此模板」建立新倉庫
-2. 全域替換名稱：
-
-```bash
-# 套件/模組名稱
-find . -type f -name "*.py" -o -name "*.md" -o -name "*.toml" | xargs sed -i 's/nba_ai/your_package_name/g'
-
-# 專案顯示標題
-find . -type f -name "*.py" -o -name "*.md" -o -name "*.toml" | xargs sed -i 's/RepoTemplate/YourProjectTitle/g'
-```
-
-1. 更新 `pyproject.toml` 中的作者/描述等中繼資料
-
-## 🧰 指令一覽
-
-```bash
-# 開發
-make help               # 顯示 Makefile 指令列表
-make clean              # 清理快取、產物與產生的文件
-make format             # 執行所有 pre-commit hooks
-make test               # 執行 pytest
-make gen-docs           # 從 src/ 與 scripts/ 生成文件
-
-# Git 子模組（如有使用）
-make submodule-init     # 初始化與更新所有子模組
-make submodule-update   # 更新所有子模組至遠端
-
-# 依賴管理（uv）
-make uv-install         # 安裝 uv
-uv add <pkg>            # 加入正式依賴
-uv add <pkg> --dev      # 加入開發依賴
-# 同步選用依賴群組
-uv sync --group dev     # 安裝開發用依賴（pre-commit、poe、notebook）
-uv sync --group test    # 安裝測試用依賴
-uv sync --group docs    # 安裝文件用依賴
-```
-
-## 📚 文件系統
-
-- 使用 MkDocs Material
-- 生成與預覽：
-
-```bash
-uv sync --group docs
-make gen-docs
-uv run mkdocs serve    # http://localhost:9987
-```
-
-- 自動生成腳本：`scripts/gen_docs.py`（支援 .py 與 .ipynb）
-
-```bash
-# 以 class 為單位（預設）
-uv run python ./scripts/gen_docs.py --source ./src --output ./docs/Reference gen_docs
-
-# 以檔案為單位
-uv run python ./scripts/gen_docs.py --source ./src --output ./docs/Reference --mode file gen_docs
-```
-
-## 🐳 Docker 與本機服務
-
-`docker-compose.yaml` 內提供本機開發常見服務：`redis`、`postgresql`、`mongodb`、`mysql`，以及示範 `app` 服務（執行 CLI）。
-
-建立 `.env` 設定連線參數（預設如下）：
-
-```bash
-REDIS_PORT=6379
-POSTGRES_DB=postgres
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_PORT=5432
-MONGO_PORT=27017
-MYSQL_ROOT_PASSWORD=root
-MYSQL_DATABASE=mysql
-MYSQL_USER=mysql
-MYSQL_PASSWORD=mysql
-MYSQL_PORT=3306
-```
-
-啟動服務：
-
-```bash
-docker compose up -d redis postgresql mongodb mysql
-
-# 或啟動示範 app
-docker compose up -d app
-```
-
-## 📦 打包與發佈
-
-以 uv 產出套件（wheel/sdist 會放在 `dist/`）：
-
-```bash
-uv build
-```
-
-發佈到 PyPI（需設定 `UV_PUBLISH_TOKEN`）：
-
-```bash
-UV_PUBLISH_TOKEN=... uv publish
-```
-
-CI 亦會在建立 `v*` 標籤時自動打包多平台可執行檔與 Python 套件，並上傳到 GitHub Release。若要自動發布到 PyPI，請在 repository 設定中新增 `UV_PUBLISH_TOKEN` secret（`build_release.yml` 已設定自動發布）。
-
-### 在本機與 PyPI 執行你的 CLI
-
-- 本機（來源碼倉）：
-
-```bash
-uv run nba_ai
-uv run cli
-```
-
-- 發佈到 PyPI 後，透過 `uvx`（臨時安裝後執行）：
-
-```bash
-# 若 console script 名稱為 "nba_ai"
-uvx nba_ai
-
-# 或指定套件/版本與入口名稱
-uvx --from your-package-name==0.1.0 your-entrypoint
-```
-
-## 🧭 選用任務管理（Poe the Poet）
-
-`pyproject.toml` 中的 `[tool.poe.tasks]` 定義了便捷任務，安裝 dev 群組（`uv sync --group dev`）或使用 `uvx` 後可用：
-
-```bash
-uv run poe docs        # 生成 + 啟動文件預覽（需 dev 群組）
-uv run poe gen         # 生成 + 發佈文件（gh-deploy）（需 dev 群組）
-uv run poe main        # 執行 CLI（等同 uv run nba_ai）
-
-# 或使用 uvx（臨時環境，無需本地安裝）
-uvx poe docs
-```
-
-## 🔁 CI/CD 工作流程總覽
-
-所有流程位於 `.github/workflows/`，以下為觸發時機與用途：
-
-- Tests（`test.yml`）
-
-    - 觸發：對 `main`、`release/*` 的 PR
-    - 執行 pytest（3.11/3.12/3.13/3.14）並留下覆蓋率摘要
-
-- Code Quality（`code-quality-check.yml`）
-
-    - 觸發：PR
-    - 執行 ruff 與其它 pre-commit hooks
-
-- Docs Deploy（`deploy.yml`）
-
-    - 觸發：推送到 `main` 與 `v*` 標籤
-    - 建置並發布 MkDocs 網站到 GitHub Pages
-    - 需在 GitHub 啟用 Pages（Actions → Pages）
-
-- Build and Release（`build_release.yml`）
-
-    - 觸發：`v*` 標籤推送或手動觸發
-    - 建置多平台可執行檔（透過 PyInstaller）：
-        - macOS（ARM64、x64）
-        - Linux（x64 GNU、ARM64 GNU）
-        - Windows（x64、ARM64）
-    - 建置 Python 套件（wheel & sdist）
-    - 自動發布到 PyPI（需設定 `UV_PUBLISH_TOKEN` secret）
-    - 上傳所有產物至 GitHub Release
-    - 注意：此為 template 示範流程，請依實際專案需求調整
-
-- Publish Docker Image（`build_image.yml`）
-
-    - 觸發：推送到 `main` 與 `v*` 標籤
-    - 發佈至 GHCR：`ghcr.io/<owner>/<repo>`（需 `docker/Dockerfile` 內有 `prod` target）
-
-- Release Drafter（`release_drafter.yml`）
-
-    - 觸發：推送到 `main` 與 PR 事件
-    - 基於 Conventional Commits 維護草稿發佈
-
-- PR Labeler（`auto_labeler.yml`）
-
-    - 觸發：PR 與 Push
-    - 依 `.github/labeler.yml` 自動加標籤
-
-- Secret Scanning（`secret_scan.yml`）
-
-    - 觸發：Push 與 PR
-    - 使用 gitleaks 掃描機密
-
-- Semantic Pull Request（`semantic-pull-request.yml`）
-
-    - 觸發：PR 開啟/更新
-    - 強制 PR 標題符合 Conventional Commits
-
-### CI/CD 設定清單
-
-- PR 標題遵循 Conventional Commits
-- （選用）發佈到 PyPI：在 repository 設定中新增 `UV_PUBLISH_TOKEN` secret（Settings → Secrets and variables → Actions）
-- （選用）啟用 GitHub Pages 以發布文件（Settings → Pages → Source: GitHub Actions）
-- （選用）發佈 Docker 映像檔：確認 GHCR 權限已啟用（Settings → Actions → General → Workflow permissions: Read and write）
-
-## 🧩 範例 CLI
-
-`pyproject.toml` 內提供 `nba_ai` 與 `cli` 兩個入口點。目前示範回傳簡單 `Response` 模型，可依需求替換。
-
-```bash
-uv run nba_ai
-```
+- `data/raw/` - nba_api 的原始 JSON 回應
+- `data/processed/` - 清洗和結構化後的資料
+- 資料庫：SQLite（預設）或 PostgreSQL（生產環境）
 
 ## 🤝 貢獻
 
-- 歡迎 Issue/PR
-- 請遵循程式風格（ruff、型別）
-- PR 標題遵循 Conventional Commits
+歡迎貢獻！請隨時提交 Pull Request。
 
 ## 📄 授權
 
-MIT — 詳見 `LICENSE`。
+MIT — 詳見 [LICENSE](LICENSE)
