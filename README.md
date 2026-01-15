@@ -55,7 +55,6 @@ Leverage the `nba_api` library to systematically download and store NBA data fro
 
 - **NBA API Integration**: Utilize `nba_api` library for reliable data access from NBA.com
 - **Automated Data Collection**: Scheduled tasks to fetch daily game results, player stats, and team data
-- **Structured Storage**: Well-organized data schema (SQLite/PostgreSQL) for efficient querying and analysis
 - **Data Validation**: Comprehensive data quality checks and deduplication
 - **Modern Development**: Built with `uv`, `ruff`, `mypy`, and `pytest`
 
@@ -77,7 +76,6 @@ nba_ai/
 │   │   ├── players.py   # Player stats and profiles
 │   │   └── teams.py     # Team stats and standings
 │   ├── models/           # Data models and Pydantic schemas
-│   ├── storage/          # Database handlers (SQLite/PostgreSQL)
 │   ├── ml/              # (Future) Machine learning models
 │   ├── llm/             # (Future) LLM integration for news analysis
 │   └── api/             # (Future) FastAPI endpoints
@@ -94,7 +92,6 @@ nba_ai/
 ### Phase 1: Data Infrastructure (Q1 2026)
 
 - [ ] Set up `nba_api` integration and test endpoints
-- [ ] Design database schema for player stats, games, and teams
 - [ ] Implement data collectors for:
     - [ ] Game scores and box scores
     - [ ] Player per-game statistics
@@ -166,7 +163,6 @@ Collected data will be stored in the `data/` directory:
 
 - `data/raw/` - Raw JSON responses from nba_api
 - `data/processed/` - Cleaned and structured data
-- Database: SQLite (default) or PostgreSQL for production
 
 ## 🤝 Contributing
 
