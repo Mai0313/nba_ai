@@ -60,13 +60,14 @@ omit = ["*/__init__.py"]
 # ================== #
 
 [project]
-name = "repo_template"
+name = "nba_ai"
 version = "0.1.0"
-description = "Repository template for Python projects"
+description = "NBA data collection and AI analysis toolkit"
 authors = [
     { name = "Wei", email = "mai@mai0313.com" },
 ]
 dependencies = [
+    "nba-api>=1.11.3",
     "pydantic",
 ]
 readme = "README.md"
@@ -74,12 +75,12 @@ requires-python = ">= 3.11"
 license = { text = "MIT" }
 
 [project.urls]
-Homepage = "https://mai0313.github.io/repo_template"
-Repository = "https://github.com/Mai0313/repo_template"
+Homepage = "https://mai0313.github.io/nba_ai"
+Repository = "https://github.com/Mai0313/nba_ai"
 
 [project.scripts]
-cli = "repo_template.cli:main"
-repo_template = "repo_template.cli:main"
+cli = "nba_ai.cli:main"
+nba_ai = "nba_ai.cli:main"
 
 [dependency-groups]
 dev = [
@@ -119,11 +120,11 @@ allow-direct-references = true
 
 [tool.hatch.build]
 include = [
-    "src/repo_template"
+    "src/nba_ai"
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/repo_template"]
+packages = ["src/nba_ai"]
 
 [tool.hatch.build.targets.sdist]
 # Basically everything except hidden files/directories (such as .github, .devcontainers, .python-version, etc)
@@ -161,9 +162,9 @@ exclude = [
 ]
 
 [tool.poe.tasks]
-cli = "python ./src/repo_template/cli.py"
-api = "python ./src/repo_template/cli.py"
-main = "python ./src/repo_template/cli.py"
+cli = "python ./src/nba_ai/cli.py"
+api = "python ./src/nba_ai/cli.py"
+main = "python ./src/nba_ai/cli.py"
 
 # Documentation
 docs_gen = "make gen-docs"
@@ -454,7 +455,7 @@ skip-magic-trailing-comma = true
 [tool.logfire]
 send_to_logfire = false
 token = false
-project_name = "repo_template"
+project_name = "nba_ai"
 trace_sample_rate = 1.0
 console_colors = "auto"
 console_span_style = "show-parents"

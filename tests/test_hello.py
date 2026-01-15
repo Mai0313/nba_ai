@@ -1,4 +1,4 @@
-from repo_template.cli import main
+from nba_ai.cli import main
 
 
 def test_main() -> None:
