@@ -95,10 +95,10 @@ nba_ai/
 - [ ] Set up `nba_api` integration and test endpoints
 - [ ] Design database schema for player stats, games, and teams
 - [ ] Implement data collectors for:
-  - [ ] Game scores and box scores
-  - [ ] Player per-game statistics
-  - [ ] Player availability and injury reports
-  - [ ] Team standings and statistics
+    - [ ] Game scores and box scores
+    - [ ] Player per-game statistics
+    - [ ] Player availability and injury reports
+    - [ ] Team standings and statistics
 - [ ] Build ETL pipeline for daily data updates
 - [ ] Create data validation and quality checks
 - [ ] Set up automated data archiving and backup
